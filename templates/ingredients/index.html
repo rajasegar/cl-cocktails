@@ -1,0 +1,21 @@
+{% extends "layouts/default.html" %}
+{% block title %}Ingredients - Cocktails in Common Lisp{% endblock %}
+{% block content %}
+<h1>Ingredients</h1>
+{% include "_loader.html" %}
+<div class="row" id="ingredients-list">
+  {% for ing in ingredients %}
+  <div class="col-md-3 my-4">
+    <div class="card text-center h-100">
+      <img src="https://thecocktaildb.com/images/ingredients/{{ing.str-ingredient-1}}-Medium.png" class="card-img-top mt-2" alt="{{ing.str-ingredient-1}}">
+      <div class="card-body">
+        <h5 class="card-title">{{ing.str-ingredient-1}}</h5>
+      </div>
+      <div class="card-footer bg-white border-top-0">
+        <a class="btn btn-dark text-white" role="button" href="/ingredients/cocktails?ingredient={{ing.str-ingredient-1}}" class="card-link">Cocktails</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

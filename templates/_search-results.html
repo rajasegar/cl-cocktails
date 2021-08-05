@@ -1,0 +1,9 @@
+<li><h6 class="dropdown-header">Ingredients</h6></li>
+{% for ing in ingredients %}
+<li><a class="dropdown-item" href="/ingredients/cocktails?ingredient={{ing.str-ingredient}}">{{ing.str-ingredient}}</a></li>
+{% endfor %}
+<li><hr class="dropdown-divider"></li>
+<li><h6 class="dropdown-header">Cocktails</h6></li>
+{% for c in cocktails %}
+<li><a class="dropdown-item" href="/cocktails/{{c.id-drink}}">{{c.str-drink}}</a></li>
+{% endfor %}

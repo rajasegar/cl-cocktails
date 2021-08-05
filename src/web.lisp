@@ -28,6 +28,8 @@
 		       "Shot"
 		       "Coffee / Tea"
 		       "Homemade Liqueur"))
+(defvar *alphabets* '("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"
+                      "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z"))
 
 ;;
 ;; Routing rules
@@ -44,10 +46,10 @@
     (print (getf  (assoc :drinks cocktail) :drinks))
     (render #P"show.html" (list :cocktail (getf (assoc :drinks cocktail) :drinks)))))
 
-(defroute "/ingredients/:id" (&key id)
-  (let ((ingredient (cl-json:decode-json-from-string (dex:get (concatenate 'string "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=" id)))))
-    (print ingredient)
-    (render #P"ingredients/show.html" (list :ingredient ingredient))))
+;; (defroute "/ingredients/:id" (&key id)
+;;   (let ((ingredient (cl-json:decode-json-from-string (dex:get (concatenate 'string "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=" id)))))
+;;     (print ingredient)
+;;     (render #P"ingredients/show.html" (list :ingredient ingredient))))
 
 (defroute "/random" ()
   (let ((cocktail (cl-json:decode-json-from-string (dex:get "https://www.thecocktaildb.com/api/json/v1/1/random.php"))))
@@ -63,10 +65,28 @@
   (let ((ingredients (cl-json:decode-json-from-string (dex:get "https://thecocktaildb.com/api/json/v1/1/list.php?i=list"))))
     (render #P"_ingredients.html" (list :ingredients (assoc :drinks ingredients)))))
 
+;; Get list of ingredients
+(defroute "/ingredients/list" ()
+  (let ((ingredients (cl-json:decode-json-from-string (dex:get "https://thecocktaildb.com/api/json/v1/1/list.php?i=list"))))
+    (print ingredients)
+    (render #P"ingredients/index.html" (list :ingredients (rest (assoc :drinks ingredients))))))
+
+;; Get list of cocktails containing ingredient
+(defroute "/ingredients/cocktails" (&key _parsed)
+  (let* ((ingredient (cdr (assoc "ingredient" _parsed :test #'string=)))
+         (cocktails
+	   (cl-json:decode-json-from-string
+	    (dex:get
+	     (concatenate 'string  "https://thecocktaildb.com/api/json/v1/1/filter.php?i="
+			  (quri:url-encode ingredient))))))
+    (render #P"ingredients/cocktails.html" (list :cocktails (rest (assoc :drinks cocktails))
+                                                 :ingredient ingredient))))
+
+
+
 ;; Get list of glasses
 (defroute "/glasses" ()
   (let ((glasses (cl-json:decode-json-from-string (dex:get "https://thecocktaildb.com/api/json/v1/1/list.php?g=list"))))
-    (print glasses)
     (render #P"_glasses.html" (list :glasses (assoc :drinks glasses)))))
   
 
@@ -106,6 +126,22 @@
 	     (concatenate 'string  "https://thecocktaildb.com/api/json/v1/1/filter.php?"
 			  param "=" value)))))
     (render #P"_cocktail-list.html" (list :cocktails (rest (assoc :drinks cocktails))))))
+
+(defroute "/alphabets" ()
+  (render #P"alphabets.html" (list :alphabets *alphabets*)))
+
+
+(defroute "/alphabets/:id" (&key id)
+  (let ((cocktails (cl-json:decode-json-from-string (dex:get (concatenate 'string "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=" id)))))
+    (render #P"_cocktail-list.html" (list :cocktails (rest (assoc :drinks cocktails))))))
+
+(defroute ("/search" :method :POST) (&key _parsed)
+  (let* ((query (cdr (assoc "query" _parsed :test #'string=)))
+         (cocktails (cl-json:decode-json-from-string (dex:get (concatenate 'string "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" query))))
+         (ingredients (cl-json:decode-json-from-string (dex:get (concatenate 'string "https://www.thecocktaildb.com/api/json/v1/1/search.php?i=" query)))))
+    (print ingredients)
+    (render #P"_search-results.html" (list :cocktails (rest (assoc :drinks cocktails))
+                                           :ingredients (rest (assoc :ingredients ingredients))))))
 ;;
 ;; Error pages
 

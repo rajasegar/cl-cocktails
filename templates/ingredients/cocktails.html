@@ -1,0 +1,9 @@
+{% extends "layouts/default.html" %}
+{% block title %}Cocktails in Common Lisp{% endblock %}
+{% block content %}
+<img class="mx-auto d-block" src="https://thecocktaildb.com/images/ingredients/{{ingredient}}-Medium.png" alt="{{ingredient}}">
+<h4 class="text-center">Cocktails containing {{ingredient}}</h4>
+<div class="row" id="cocktail-list">
+  {% include "_cocktail-list.html" %}
+</div>
+{% endblock %}

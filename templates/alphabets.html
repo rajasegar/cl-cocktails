@@ -1,0 +1,14 @@
+{% extends "layouts/default.html" %}
+{% block title %}Cocktails in Common Lisp{% endblock %}
+{% block content %}
+<h1>Cocktails</h1>
+<div class="btn-group">
+  {% for char in alphabets %}
+  <button  class="btn btn-outline-dark" hx-get="/alphabets/{{char|lower}}" hx-target="#cocktail-list" _="on click remove .active from .btn toggle .active">{{char}}</button>
+  {% endfor %}
+</div>
+{% include "_loader.html" %}
+<div class="row" id="cocktail-list">
+  {% include "_cocktail-list.html" %}
+</div>
+{% endblock %}
