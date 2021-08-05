@@ -1,0 +1,39 @@
+{% extends "layouts/default.html" %}
+{% block content %}
+<div class="row my-4">
+  <div class="col-md-4">
+    <img src="{{cocktail.str-drink-thumb}}" class="w-100">
+  </div>
+  <div class="col-md-7 offset-md-1">
+    <h1>{{cocktail.str-drink}}</h1>
+    <p class="fst-italic text-muted">{{cocktail.str-tags}}</p>
+    <p>{{cocktail.str-instructions}}</p>
+    <p><span class="fw-bold">Category:</span> {{cocktail.str-category}}</p>
+    <p><span class="fw-bold">Alcoholic:</span> {{cocktail.str-alcoholic}}</p>
+    <p><span class="fw-bold">Glass:</span> {{cocktail.str-glass}}</p>
+    <div class="card mb-3">
+      <div class="card-header"><span class="fw-bold">Ingredients:</span></div>
+      <div class="card-body">
+	<ul>
+	  <li>{{cocktail.str-ingredient-1}} - {{cocktail.str-measure-1}}</li>
+	  <li>{{cocktail.str-ingredient-2}} - {{cocktail.str-measure-2}}</li>
+	  <li>{{cocktail.str-ingredient-3}} - {{cocktail.str-measure-3}}</li>
+	  <li>{{cocktail.str-ingredient-4}} - {{cocktail.str-measure-4}}</li>
+	  <li>{{cocktail.str-ingredient-5}} - {{cocktail.str-measure-5}}</li>
+	  <li>{{cocktail.str-ingredient-6}} - {{cocktail.str-measure-6}}</li>
+	  <li>{{cocktail.str-ingredient-7}} - {{cocktail.str-measure-7}}</li>
+	  <li>{{cocktail.str-ingredient-8}} - {{cocktail.str-measure-8}}</li>
+	  <li>{{cocktail.str-ingredient-9}} - {{cocktail.str-measure-9}}</li>
+	  <li>{{cocktail.str-ingredient-10}} - {{cocktail.str-measure-10}}</li>
+	  <li>{{cocktail.str-ingredient-11}} - {{cocktail.str-measure-11}}</li>
+	  <li>{{cocktail.str-ingredient-12}} - {{cocktail.str-measure-12}}</li>
+	  <li>{{cocktail.str-ingredient-13}} - {{cocktail.str-measure-13}}</li>
+	  <li>{{cocktail.str-ingredient-14}} - {{cocktail.str-measure-14}}</li>
+	  <li>{{cocktail.str-ingredient-15}} - {{cocktail.str-measure-15}}</li>
+	</ul>
+      </div>
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

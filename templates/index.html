@@ -1,0 +1,37 @@
+{% extends "layouts/default.html" %}
+{% block title %}Cocktails in Common Lisp{% endblock %}
+{% block content %}
+<h1>Cocktails</h1>
+<form class="row">
+  <div class="col" hx-get="/ingredients" hx-trigger="load" hx-target="#ingredient-list">
+    <label>Ingredient:</label>
+    <select id="ingredient-list" name="ingredient" class="form-select" hx-post="/filter/ingredient" hx-target="#cocktail-list">
+    </select>
+  </div>
+  <div class="col">
+    <label>Category:</label>
+    <select id="category-list" name="category" class="form-select" hx-post="/filter/category" hx-target="#cocktail-list">
+      {% for category in categories %}
+      <option value="{{category}}">{{category}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col" hx-get="/glasses" hx-trigger="load" hx-target="#glass-list">
+    <label>Glass:</label>
+    <select id="glass-list" name="glass" class="form-select" hx-post="/filter/glass" hx-target="#cocktail-list">
+    </select>
+  </div>
+  <div class="col">
+    <label>Alcoholic:</label>
+    <select id="alcoholic-list" name="alcoholic" class="form-select" hx-post="/filter/alcoholic" hx-target="#cocktail-list">
+      {% for alc in alcoholics %}
+      <option value="{{alc}}">{{alc}}</option>
+      {% endfor %}
+    </select>
+  </div>
+</form>
+{% include "_loader.html" %}
+<div class="row" id="cocktail-list">
+  {% include "_cocktail-list.html" %}
+</div>
+{% endblock %}

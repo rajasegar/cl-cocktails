@@ -1,0 +1,14 @@
+{% for cocktail in cocktails %}
+<div class="col-md-3 my-4">
+  <div class="card text-center h-100">
+    <img src="{{cocktail.str-drink-thumb}}" class="card-img-top mt-2" alt="{{beer.name}}">
+    <div class="card-body">
+      <h5 class="card-title"><a class="text-decoration-none" href="/cocktails/{{cocktail.id-drink}}">{{cocktail.str-drink}}</a></h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{cocktail.str-tags}}</h6>
+    </div>
+    <div class="card-footer bg-white border-top-0">
+      <a class="btn btn-outline-dark" role="button" href="/cocktails/{{cocktail.id-drink}}" class="card-link">Shake it!</a>
+    </div>
+  </div>
+</div>
+{% endfor %}
