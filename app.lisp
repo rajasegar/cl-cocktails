@@ -1,4 +1,4 @@
-(push #P"/app/" asdf:*centrl-registry*)
+(push #P"/app/" asdf:*central-registry*)
 
 (ql:quickload :cl-cocktails)
 
