@@ -1,3 +1,5 @@
+(push #P"/app/" asdf:*centrl-registry*)
+
 (ql:quickload :cl-cocktails)
 
 (defpackage cl-cocktails.app
